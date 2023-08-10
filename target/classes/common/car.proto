@@ -1,0 +1,22 @@
+// Proto 3 (all fields are required)
+// Proto 2 (you have to indicate fields  required or not )
+syntax = "proto3";
+
+package  common;
+
+option  java_multiple_files = true;
+option java_package = "com.davidmwangi.models";
+
+message Car {
+  string  make =1;
+  string model =  2;
+  int32 year =  3;
+  BodyStyle body_style =4;
+}
+
+enum BodyStyle {
+  UNKNOWN =0;//Will always pick the Oth item as default
+  SEDAN = 1;
+  COUPE =3;
+  SUV =4;
+}
