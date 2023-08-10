@@ -2,37 +2,24 @@
 // Proto 2 (you have to indicate fields  required or not )
 syntax = "proto3";
 
+import "common/address.proto";
+import "common/car.proto";
+import "google/protobuf/wrappers.proto";
 
 option  java_multiple_files = true;
 option java_package = "com.davidmwangi.models";
 
-message Address {
-  int32 postbox = 1;
-  string street = 2;
-  string city =3;
-}
-
-message Car {
-  string  make =1;
-  string model =  2;
-  int32 year =  3;
-  BodyStyle body_style =4;
-}
 
 message Person {
-  string name  = 1;
-  int32 age = 2;
-  Address address = 3;
-  repeated Car car = 4;
+  //Use 1->15 for frequently used fields (1 byte)
+  //Use 16 ->2047  for fields not frequently used (2 bytes)
+  //1=David
+  //2=24
+  string name  = 1;// 1  is tag
+  google.protobuf.Int32Value age = 2;
+  common.Address address = 3;
+  repeated common.Car car = 4;
 }
 
-message Dealer {
-  map<int32, Car>model = 1;
-}
 
-enum BodyStyle {
-  UNKNOWN =0;//Will always pick the Oth item as default
-  SEDAN = 1;
-  COUPE =3;
-  SUV =4;
-}
+

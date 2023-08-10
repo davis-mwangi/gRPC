@@ -1,0 +1,13 @@
+syntax="proto3";
+
+import "common/address.proto";
+import "common/car.proto";
+
+option java_multiple_files=true;
+option java_package="com.davidmwangi.models";
+
+//V2 API
+message Television {
+  string brand =1;
+  int32  year = 2;
+}

@@ -3,6 +3,7 @@ package com.davidmwangi.protobuf;
 import com.davidmwangi.models.Person;
 import com.davidmwangi.protobuf.json.JPerson;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.protobuf.Int32Value;
 
 public class PerformanceTest {
     public static void main(String[] args) {
@@ -17,6 +18,7 @@ public class PerformanceTest {
         Runnable json = () -> {
             try{
                 byte[]bytes = mapper.writeValueAsBytes(person);
+                System.out.println("JSON:"+bytes.length);
                 JPerson person1 = mapper.readValue(bytes, JPerson.class);
             }catch (Exception e){
                 e.printStackTrace();
@@ -26,7 +28,7 @@ public class PerformanceTest {
        //protobuf
        Person david =  Person.newBuilder()
                 .setName("David")
-                .setAge(10)
+                .setAge(Int32Value.newBuilder().setValue(20).build())
                 .build();
 
 
@@ -34,13 +36,14 @@ public class PerformanceTest {
         Runnable proto = () -> {
             try{
                 byte[] bytes =  david.toByteArray();
+                System.out.println("PROTO:"+bytes.length);
                 Person person1 = Person.parseFrom(bytes);
             }catch (Exception e){
                 e.printStackTrace();
             }
         };
 
-        for (int i = 0; i < 5 ; i++) {
+        for (int i = 0; i < 1 ; i++) {
             runPerformanceTest(json, "JSON");
             runPerformanceTest(proto, "PROTO");
         }
@@ -49,7 +52,7 @@ public class PerformanceTest {
     }
     private static  void runPerformanceTest(Runnable runnable,String method){
        long time1 =  System.currentTimeMillis();
-        for (int i = 0; i < 5000000; i++) {
+        for (int i = 0; i < 1; i++) {
             runnable.run();
         }
 
