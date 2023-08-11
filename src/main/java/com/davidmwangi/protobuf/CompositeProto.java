@@ -3,6 +3,7 @@ package com.davidmwangi.protobuf;
 import com.davidmwangi.models.Address;
 import com.davidmwangi.models.Car;
 import com.davidmwangi.models.Person;
+import com.google.protobuf.Int32Value;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class CompositeProto {
 
         Person david =  Person.newBuilder()
                 .setName("David")
-                .setAge(10)
+                .setAge(Int32Value.newBuilder().setValue(25).build())
                 .setAddress(address)
                 .addAllCar(carList)
                 .build();
