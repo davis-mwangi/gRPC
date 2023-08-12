@@ -18,7 +18,7 @@ public class PerformanceTest {
         Runnable json = () -> {
             try{
                 byte[]bytes = mapper.writeValueAsBytes(person);
-                System.out.println("JSON:"+bytes.length);
+//                System.out.println("JSON:"+bytes.length);
                 JPerson person1 = mapper.readValue(bytes, JPerson.class);
             }catch (Exception e){
                 e.printStackTrace();
@@ -28,7 +28,7 @@ public class PerformanceTest {
        //protobuf
        Person david =  Person.newBuilder()
                 .setName("David")
-                .setAge(Int32Value.newBuilder().setValue(20).build())
+                .setAge(Int32Value.newBuilder().setValue(10).build())
                 .build();
 
 
@@ -36,14 +36,14 @@ public class PerformanceTest {
         Runnable proto = () -> {
             try{
                 byte[] bytes =  david.toByteArray();
-                System.out.println("PROTO:"+bytes.length);
+//                System.out.println("PROTO:"+bytes.length);
                 Person person1 = Person.parseFrom(bytes);
             }catch (Exception e){
                 e.printStackTrace();
             }
         };
 
-        for (int i = 0; i < 1 ; i++) {
+        for (int i = 0; i < 5 ; i++) {
             runPerformanceTest(json, "JSON");
             runPerformanceTest(proto, "PROTO");
         }
@@ -52,7 +52,7 @@ public class PerformanceTest {
     }
     private static  void runPerformanceTest(Runnable runnable,String method){
        long time1 =  System.currentTimeMillis();
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 10000000; i++) {
             runnable.run();
         }
 

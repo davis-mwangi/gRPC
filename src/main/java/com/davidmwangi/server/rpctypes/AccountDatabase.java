@@ -1,4 +1,4 @@
-package com.davidmwangi.server;
+package com.davidmwangi.server.rpctypes;
 
 import java.util.Map;
 import java.util.function.Function;
@@ -21,7 +21,7 @@ public class AccountDatabase {
             .boxed()
             .collect(Collectors.toMap(
                     Function.identity(),
-                    v -> v * 10)
+                    v -> 100)
             );
     public  static int getBalance(int accountId){
         return  MAP.get(accountId);
@@ -33,5 +33,9 @@ public class AccountDatabase {
 
     public static  Integer deductBalance(int accountId, int amount){
         return MAP.computeIfPresent(accountId,(k,v)-> v -  amount);
+    }
+
+    public  static  void printAccountDetails(){
+        System.out.println(MAP);
     }
 }
