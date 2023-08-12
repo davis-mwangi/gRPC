@@ -46,7 +46,7 @@ public class BankClientTest {
 
     @Test
     public  void withdrawAsyncTest(){
-        WithdrawRequest withdrawRequest = WithdrawRequest.newBuilder().setAccountNumber(10).setAmount(50).build();
+        WithdrawRequest withdrawRequest = WithdrawRequest.newBuilder().setAccountNumber(10).setAmount(100).build();
         this.bankServiceStub.withdraw(withdrawRequest, new MoneyStreamingResponse());
         Uninterruptibles.sleepUninterruptibly(3, TimeUnit.SECONDS);
     }
